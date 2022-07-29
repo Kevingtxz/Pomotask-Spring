@@ -1,0 +1,31 @@
+spring:
+  security:
+    oauth2:
+      client:
+        user-current-uri: false
+        registration:
+#          github:
+#            clientId:
+#            clientSecret:
+#            scope: openid, profile, email
+          google:
+            clientId:
+            clientSecret:
+            scope: openid, profile, email
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+#    show-sql: true
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: create-drop
+
+jwt:
+  secret: RATAO_DE_ESGOTO
+  expiration: 1296000
