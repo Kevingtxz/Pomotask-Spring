@@ -1,12 +1,16 @@
 package com.pomotask.pomotask.config.db_simulation;
 
+import com.pomotask.pomotask.app.dto.form.TimerForm;
+import com.pomotask.pomotask.app.model.TimerModel;
 import com.pomotask.pomotask.auth.auth_user.AuthModel;
 import com.pomotask.pomotask.auth.auth_user.AuthService;
-import com.pomotask.pomotask.main.domain.TaskModel;
-import com.pomotask.pomotask.main.dto.form.TaskForm;
-import com.pomotask.pomotask.main.service.TimerManagerService;
-import com.pomotask.pomotask.main.service.TaskService;
-import com.pomotask.pomotask.main.service.TimerService;
+import com.pomotask.pomotask.auth.user.UserModel;
+import com.pomotask.pomotask.auth.user.UserService;
+import com.pomotask.pomotask.app.model.TaskModel;
+import com.pomotask.pomotask.app.dto.form.TaskForm;
+import com.pomotask.pomotask.app.service.TaskService;
+import com.pomotask.pomotask.app.service.TimerManagerService;
+import com.pomotask.pomotask.app.service.TimerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +21,11 @@ public class DBService {
 
 
     @Autowired
-    private AuthService userService;
+    private AuthService authService;
     @Autowired
-    private TimerManagerService bigTimerService;
+    private UserService userService;
+    @Autowired
+    private TimerManagerService timerManagerService;
     @Autowired
     private TimerService timerService;
     @Autowired
@@ -30,72 +36,61 @@ public class DBService {
 
         try {
 
-            AuthModel u1 = userService.findOrInsertByEmail("kevingtxz@gmail.com");
-//            UserModel u2 = userService.findOrInsertByEmail("email2@example.com");
-//            UserModel u3 = userService.findOrInsertByEmail("email3@example.com");
-//            UserModel u4 = userService.findOrInsertByEmail("email4@example.com");
-//            UserModel u5 = userService.findOrInsertByEmail("email5@example.com");
-//            UserModel u6 = userService.findOrInsertByEmail("email6@example.com");
-//            UserModel u7 = userService.findOrInsertByEmail("email7@example.com");
-//            UserModel u8 = userService.findOrInsertByEmail("email8@example.com");
-//            UserModel u9 = userService.findOrInsertByEmail("email9@example.com");
-//            UserModel u0 = userService.findOrInsertByEmail("email0@example.com");
+            AuthModel me = authService.findOrInsertByEmail("kevingtxz@gmail.com");
+            AuthModel a1 = authService.findOrInsertByEmail("email1@example.com");
+            AuthModel a2 = authService.findOrInsertByEmail("email2@example.com");
+            AuthModel a3 = authService.findOrInsertByEmail("email3@example.com");
+            AuthModel a4 = authService.findOrInsertByEmail("email4@example.com");
+            AuthModel a5 = authService.findOrInsertByEmail("email5@example.com");
+            AuthModel a6 = authService.findOrInsertByEmail("email6@example.com");
+            AuthModel a7 = authService.findOrInsertByEmail("email7@example.com");
+            AuthModel a8 = authService.findOrInsertByEmail("email8@example.com");
+            AuthModel a9 = authService.findOrInsertByEmail("email9@example.com");
+            AuthModel a0 = authService.findOrInsertByEmail("email0@example.com");
 
-            TaskForm tf1 = new TaskForm();
-            tf1.setCreatedAt(new Date().getTime());
-            tf1.setTitle("First");
-            tf1.setCrucial(true);
-            tf1.setDeadline(new Date().getTime() + 86400000 * 10);
-            tf1.setHard(true);
-            tf1.setExpectedTimeHours(100);
-            tf1.setHealthLevel(10);
-            tf1.setSuccessful(false);
-            tf1.setWorkedTimeMinutes(5);
-            TaskModel t1 = taskService.insert(u1.getEmail(), tf1);
-//            TaskModel t2 = taskService.insert(u1.getEmail(), new TaskForm());
-//            TaskModel t3 = taskService.insert(u1.getEmail(), new TaskForm());
-//            TaskModel t4 = taskService.insert(u1.getEmail(), new TaskForm());
-//            TaskModel t5 = taskService.insert(u1.getEmail(), new TaskForm());
-//            TaskModel t6 = taskService.insert(u2.getEmail(), new TaskForm());
-//            TaskModel t7 = taskService.insert(u3.getEmail(), new TaskForm());
-//            TaskModel t8 = taskService.insert(u4.getEmail(), new TaskForm());
-//            TaskModel t9 = taskService.insert(u5.getEmail(), new TaskForm());
-//            TaskModel t0 = taskService.insert(u6.getEmail(), new TaskForm());
+            TaskForm tf = new TaskForm();
+            tf.setCreatedAt(new Date().getTime());
+            tf.setTitle("First");
+            tf.setCrucial(true);
+            tf.setDeadline(new Date().getTime() + 86400000 * 10);
+            tf.setHard(true);
+            tf.setExpectedTimeHours(100);
+            tf.setHealthLevel(10);
+            tf.setSuccessful(false);
+            tf.setWorkedTimeMinutes(5);
+            TaskModel t1 = taskService.insert(me.getId(), tf);
+            tf.setTitle("Second");
+            TaskModel t2 = taskService.insert(a1.getId(), tf);
+            tf.setTitle("Third");
+            TaskModel t3 = taskService.insert(a1.getId(), tf);
+//            TaskModel t4 = taskService.insert(a1.getId(), tf);
+//            TaskModel t5 = taskService.insert(a1.getId(), tf);
+//            TaskModel t6 = taskService.insert(a2.getId(), tf);
+//            TaskModel t7 = taskService.insert(a3.getId(), tf);
+//            TaskModel t8 = taskService.insert(a4.getId(), tf);
+//            TaskModel t9 = taskService.insert(a5.getId(), tf);
+//            TaskModel t0 = taskService.insert(a6.getId(), tf);
 
 
-//            u1.getTaskEntitySet().addAll(Arrays.asList(t1, t4, t7, t9));
-//            t1.setUser(u0);
-//            t4.setUser(u0);
-//            t7.setUser(u0);
-//            t9.setUser(u0);
+//            TimerForm tif1 = new TimerForm();
+//            tif1.setCreatedAt(new Date().getTime());
+//            tif1.setStopsCounter(10);
+//            tif1.setTaskId(t1.getId());
+//            tif1.setTimeMinutes(60);
 //
-//            TaskForm t1f = new TaskForm();
-//            t1f.setTitle("Hahaha");
-//
-//            taskService.update("kevingtxz@gmail.com", t1f, 1);
-//
-//
-//            BigTimerModel b1 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b2 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b3 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b4 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b5 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b6 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b7 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b8 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b9 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//            BigTimerModel b0 = bigTimerService.insert(u1.getEmail(), new BigTimerForm());
-//
-//            TimerModel ti1 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti2 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti3 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti4 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti5 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti6 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti7 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti8 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti9 = timerService.insert(u1.getEmail(), new TimerForm());
-//            TimerModel ti0 = timerService.insert(u1.getEmail(), new TimerForm());
+//            TimerModel ti1 = timerService.insert(me.getId(), tif1);
+//            TimerModel ti2 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti3 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti4 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti5 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti6 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti7 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti8 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti9 = timerService.insert(a1.getId(), tif1);
+//            TimerModel ti0 = timerService.insert(a1.getId(), tif1);
+
+            UserModel u1 = userService.findById(a1.getId());
+            u1.getTaskSet().forEach(System.out::println);
 
         } catch (Exception e) {
             e.printStackTrace();

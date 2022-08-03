@@ -14,7 +14,7 @@ public class ConfigDBSimulation {
 
     @Bean
     public boolean instantiateDatabase() {
-//        dbService.instantiateTestDatabase();
+        dbService.instantiateTestDatabase();
         return true;
     }
 

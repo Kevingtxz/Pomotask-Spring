@@ -13,7 +13,7 @@ public enum ProfileRole {
 
 
     private int cod;
-    private String description;
+    private String text;
 
 
     public static ProfileRole toEnum(Integer cod) {

@@ -23,13 +23,17 @@ public class AuthModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
+    @Column(nullable = false)
     private boolean active = true;
     @ToString.Include
+    @Column(nullable = false)
     private Long createdAt = new Date().getTime();
     @ToString.Include
     @EqualsAndHashCode.Include
-    @Column(unique = true, length = 255)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(unique = true, nullable = false)
     private String email;
 
     @JsonIgnore

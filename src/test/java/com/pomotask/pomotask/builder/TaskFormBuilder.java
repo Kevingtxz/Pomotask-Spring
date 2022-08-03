@@ -1,6 +1,6 @@
 package com.pomotask.pomotask.builder;
 
-import com.pomotask.pomotask.main.dto.form.TaskForm;
+import com.pomotask.pomotask.app.dto.form.TaskForm;
 import lombok.Builder;
 
 import java.util.Date;
@@ -9,8 +9,6 @@ import java.util.Date;
 public class TaskFormBuilder {
 
 
-    @Builder.Default
-    private Integer id = 1;
     @Builder.Default
     private String title = "Pomotask";
     @Builder.Default
@@ -35,7 +33,6 @@ public class TaskFormBuilder {
 
     public TaskForm toForm() {
         TaskForm form = new TaskForm();
-        form.setId(id);
         form.setTitle(title);
         form.setExpectedTimeHours(expectedTimeHours);
         form.setWorkedTimeMinutes(workedTimeMinutes);

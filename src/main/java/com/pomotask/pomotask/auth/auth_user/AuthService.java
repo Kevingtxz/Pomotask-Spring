@@ -2,11 +2,14 @@ package com.pomotask.pomotask.auth.auth_user;
 
 
 import com.pomotask.pomotask.auth.user.UserService;
-import com.pomotask.pomotask.main.service.exception.ObjectNotFoundException;
+import com.pomotask.pomotask.app.service.exception.ObjectNotFoundException;
+import com.pomotask.pomotask.util.RestMethod;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @Service
 public class AuthService {
 
@@ -25,11 +28,18 @@ public class AuthService {
     public AuthModel insert(AuthModel obj) {
         obj.getUser().setAuth(obj);
         obj = repo.save(obj);
-        userService.insert(obj.getUser());
+        Integer userId = this.userService
+                .insert(obj.getUser())
+                .getId();
+        this.useLog(RestMethod.DELETE, userId);
         return obj;
     }
 
     public void deleteByEmail(String email) {
+        Integer userId = this.findByEmail(email)
+                .getUser()
+                .getId();
+        this.useLog(RestMethod.DELETE, userId);
         repo.deleteByEmail(email);
     }
 
@@ -38,6 +48,12 @@ public class AuthService {
                 .orElseThrow(()  ->
                         new ObjectNotFoundException(
                                 "User not found."));
+    }
+
+    private void useLog(RestMethod method, Integer id) {
+        this.log.info("Object Class: User"
+                + ", Action: " + method.getText()
+                + ", ITEM_ID: " + id + ".");
     }
 
 }

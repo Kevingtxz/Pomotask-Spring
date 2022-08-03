@@ -1,6 +1,6 @@
 package com.pomotask.pomotask.builder;
 
-import com.pomotask.pomotask.main.dto.form.TimerForm;
+import com.pomotask.pomotask.app.dto.form.TimerForm;
 import lombok.Builder;
 
 import java.util.Date;
@@ -9,8 +9,6 @@ import java.util.Date;
 public class TimerFormBuilder {
 
 
-    @Builder.Default
-    private Integer id = 1;
     @Builder.Default
     private Integer timeMinutes = 60;
     @Builder.Default
@@ -29,7 +27,6 @@ public class TimerFormBuilder {
 
     public TimerForm toForm() {
         TimerForm form = new TimerForm();
-        form.setId(id);
         form.setTimeMinutes(timeMinutes);
         form.setStopsCounter(stopsCounter);
         form.setSuccessful(successful);

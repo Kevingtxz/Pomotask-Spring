@@ -1,5 +1,7 @@
 package com.pomotask.pomotask.auth.auth_user;
 
+import com.pomotask.pomotask.config.security.oauth2.AuthPrincipal;
+import com.pomotask.pomotask.config.security.oauth2.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.pomotask.pomotask.util.Version.API_VERSION_FOR_URL;
+
 @RestController
-@RequestMapping(value = "auth")
+@RequestMapping(value = API_VERSION_FOR_URL + "auth")
 public class AuthResource {
 
 
@@ -19,16 +23,14 @@ public class AuthResource {
 
 
     @GetMapping
-    public ResponseEntity<OAuth2User> findOrInsertByEmailProfile(
-            @AuthenticationPrincipal OAuth2User principal) {
-        String email = principal.getAttribute("email");
-        this.service.findOrInsertByEmail(email);
-        return ResponseEntity.ok().body(principal);
+    public ResponseEntity<Integer> findOrInsertByEmailProfile(
+            @AuthenticationPrincipal(expression = "userId") Integer userId) {
+        return ResponseEntity.ok().body(userId);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteByEmail(
-            @AuthenticationPrincipal OAuth2User principal) {
+            @CurrentUser AuthPrincipal principal) {
         String email = principal.getAttribute("email");
         service.deleteByEmail(email);
         return ResponseEntity.noContent().build();
