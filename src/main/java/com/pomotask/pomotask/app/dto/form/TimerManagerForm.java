@@ -1,5 +1,6 @@
 package com.pomotask.pomotask.app.dto.form;
 
+import com.pomotask.pomotask.app.model.TimerManagerModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,17 +12,17 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TimerManagerForm {
+public class TimerManagerForm extends AbsForm<TimerManagerModel> {
 
 
     @NotNull
-    private Long createdAt;
+    private String createdAt;
     @NotNull
     private Integer timeSeconds;
     @NotNull
     private Integer goalNumberTimers;
     @NotNull
-    private Long finishAt;
+    private String finishAt;
     @NotNull
     private boolean successful;
     private Set<TimerForm> timerEntitySet = new HashSet<>();

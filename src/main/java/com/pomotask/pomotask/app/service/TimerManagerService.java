@@ -1,11 +1,11 @@
 package com.pomotask.pomotask.app.service;
 
-import com.pomotask.pomotask.auth.user.UserService;
-import com.pomotask.pomotask.app.model.TimerManagerModel;
 import com.pomotask.pomotask.app.dto.form.TimerManagerForm;
 import com.pomotask.pomotask.app.dto.mapper.TimerManagerMapper;
 import com.pomotask.pomotask.app.dto.view.TimerManagerView;
+import com.pomotask.pomotask.app.model.TimerManagerModel;
 import com.pomotask.pomotask.app.repository.TimerManagerRepository;
+import com.pomotask.pomotask.auth.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

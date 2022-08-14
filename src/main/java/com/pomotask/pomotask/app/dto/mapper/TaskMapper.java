@@ -1,8 +1,8 @@
 package com.pomotask.pomotask.app.dto.mapper;
 
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.dto.form.TaskForm;
 import com.pomotask.pomotask.app.dto.view.TaskView;
+import com.pomotask.pomotask.app.model.TaskModel;
 import org.springframework.stereotype.Component;
 
 @Component

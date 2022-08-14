@@ -1,9 +1,7 @@
 package com.pomotask.pomotask.config.security.handler;
 
-import com.pomotask.pomotask.util.Version;
+import com.pomotask.pomotask.util.VersionUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -20,7 +18,7 @@ public class SuccessHandlerCustom implements AuthenticationSuccessHandler {
             HttpServletRequest req,
             HttpServletResponse res,
             Authentication auth) throws IOException {
-        res.sendRedirect(Version.API_VERSION_FOR_URL + "auth");
+        res.sendRedirect(VersionUtil.API_VERSION_FOR_URL);
         log.info("User authenticated");
     }
 

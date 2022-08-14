@@ -1,12 +1,13 @@
 package com.pomotask.pomotask.app.resource;
 
-import com.pomotask.pomotask.app.model.AbsModel;
+import com.pomotask.pomotask.app.dto.form.AbsForm;
 import com.pomotask.pomotask.app.dto.mapper.AbsMapper;
+import com.pomotask.pomotask.app.dto.view.AbsView;
+import com.pomotask.pomotask.app.model.AbsModel;
+import com.pomotask.pomotask.app.resource.hateoas.util.HateoasUtil;
 import com.pomotask.pomotask.app.service.AbsService;
-import com.pomotask.pomotask.config.security.oauth2.AuthPrincipal;
-import com.pomotask.pomotask.config.security.oauth2.CurrentUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -17,45 +18,47 @@ import java.net.URI;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.pomotask.pomotask.util.Version.API_VERSION_FOR_URL;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static com.pomotask.pomotask.util.VersionUtil.API_VERSION_FOR_URL;
 
 
 @RequestMapping(value = API_VERSION_FOR_URL)
 @RequiredArgsConstructor
-public abstract class AbsResource<Model extends AbsModel, Form, View> {
+public abstract class AbsResource<
+        Model extends AbsModel,
+        Form extends AbsForm<Model>,
+        View extends AbsView<Model>> {
 
 
     final protected AbsService<Model, Form, View> service;
     final protected AbsMapper<Model, Form, View> mapper;
 
 
+    
     @GetMapping
-    public ResponseEntity<Set<View>> findAll(
+    public ResponseEntity<CollectionModel<View>> findAll(
             @AuthenticationPrincipal(expression = "userId") Integer userId) {
-        Set<Model> set = this.service.findAllByUserId(userId);
-        if (set.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        else
-            for (Model model : set)
-                model.add(
-                        linkTo(methodOn(AbsResource.class)
-                        .find(userId, model.getId()))
-                        .withSelfRel());
-        Set<View> viewSet = set
-                .stream()
-                .map(obj -> this.mapper.toView(obj))
-                .collect(Collectors.toSet());
-        return ResponseEntity.ok().body(viewSet);
+        Set<Model> modelSet = this.service.findAllByUserId(userId);
+        Set<View> viewSet = modelSet
+            .stream()
+            .map(obj -> {
+                View view = this.mapper.toView(obj);
+                view.add(HateoasUtil.makeLinkToWithSelfRel(this, userId, obj.getId()));
+                return view;
+            }).collect(Collectors.toSet());
+        CollectionModel<View> collectionView = CollectionModel.of(viewSet);
+        collectionView.add(HateoasUtil.makeLinkToWithSelfRel(this, userId));
+        return ResponseEntity.ok().body(collectionView);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<View> find(
             @AuthenticationPrincipal(expression = "userId") Integer userId,
             @PathVariable Integer id) {
-        Model entity = this.service.findByUserIdAndId(userId, id);
-        return ResponseEntity.ok().body(this.mapper.toView(entity));
+        Model model = this.service.findByUserIdAndId(userId, id);
+        View view = this.mapper.toView(model);
+        view.add(HateoasUtil.makeLinkToWithSelfRel(this, userId, model.getId()));
+        view.add(HateoasUtil.makeLinkToWithCollectionRel(this, userId));
+        return ResponseEntity.ok().body(view);
     }
 
     @PostMapping

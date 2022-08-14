@@ -5,6 +5,8 @@ import lombok.Builder;
 
 import java.util.Date;
 
+import static com.pomotask.pomotask.util.DateFormatterUtil.DATE_FORMAT;
+
 @Builder
 public class TimerFormBuilder {
 
@@ -16,9 +18,9 @@ public class TimerFormBuilder {
     @Builder.Default
     private boolean successful = false;
     @Builder.Default
-    private Long createdAt = new Date().getTime();
+    private String createdAt = DATE_FORMAT.format(new Date());
     @Builder.Default
-    private Long finishedAt = new Date().getTime();
+    private String finishedAt = DATE_FORMAT.format(new Date());
     @Builder.Default
     private Integer taskId = 2000;
     @Builder.Default

@@ -1,9 +1,9 @@
 package com.pomotask.pomotask.auth.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pomotask.pomotask.auth.auth_user.AuthModel;
 import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.model.TimerManagerModel;
+import com.pomotask.pomotask.auth.auth.AuthModel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,19 +23,22 @@ public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
+    @Column(nullable = false)
+    private boolean active = true;
     @ToString.Include
     @EqualsAndHashCode.Include
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String nickname;
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "ID")
-    @MapsId
+    @JoinColumn(name = "AUTH_USER", nullable = false)
     private AuthModel auth;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<TimerManagerModel> timerManagerSet = new HashSet<>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<TaskModel> taskSet = new HashSet<>();
 
 }

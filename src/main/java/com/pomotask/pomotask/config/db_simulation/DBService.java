@@ -1,20 +1,20 @@
 package com.pomotask.pomotask.config.db_simulation;
 
-import com.pomotask.pomotask.app.dto.form.TimerForm;
-import com.pomotask.pomotask.app.model.TimerModel;
-import com.pomotask.pomotask.auth.auth_user.AuthModel;
-import com.pomotask.pomotask.auth.auth_user.AuthService;
-import com.pomotask.pomotask.auth.user.UserModel;
-import com.pomotask.pomotask.auth.user.UserService;
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.dto.form.TaskForm;
+import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.service.TaskService;
 import com.pomotask.pomotask.app.service.TimerManagerService;
 import com.pomotask.pomotask.app.service.TimerService;
+import com.pomotask.pomotask.auth.auth.AuthModel;
+import com.pomotask.pomotask.auth.auth.AuthService;
+import com.pomotask.pomotask.auth.user.UserModel;
+import com.pomotask.pomotask.auth.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+import static com.pomotask.pomotask.util.DateFormatterUtil.DATE_FORMAT;
 
 @Service
 public class DBService {
@@ -49,20 +49,20 @@ public class DBService {
             AuthModel a0 = authService.findOrInsertByEmail("email0@example.com");
 
             TaskForm tf = new TaskForm();
-            tf.setCreatedAt(new Date().getTime());
             tf.setTitle("First");
             tf.setCrucial(true);
-            tf.setDeadline(new Date().getTime() + 86400000 * 10);
+            tf.setCreatedAt(DATE_FORMAT.format(new Date().getTime()));
+            tf.setDeadline(DATE_FORMAT.format(new Date().getTime() + 86400000 * 10));
             tf.setHard(true);
             tf.setExpectedTimeHours(100);
-            tf.setHealthLevel(10);
             tf.setSuccessful(false);
             tf.setWorkedTimeMinutes(5);
-            TaskModel t1 = taskService.insert(me.getId(), tf);
+            TaskModel t1 = taskService.insert(me.getUser().getId(), tf);
             tf.setTitle("Second");
-            TaskModel t2 = taskService.insert(a1.getId(), tf);
+            tf.setCrucial(false);
+            TaskModel t2 = taskService.insert(me.getUser().getId(), tf);
             tf.setTitle("Third");
-            TaskModel t3 = taskService.insert(a1.getId(), tf);
+            TaskModel t3 = taskService.insert(me.getUser().getId(), tf);
 //            TaskModel t4 = taskService.insert(a1.getId(), tf);
 //            TaskModel t5 = taskService.insert(a1.getId(), tf);
 //            TaskModel t6 = taskService.insert(a2.getId(), tf);
@@ -89,8 +89,6 @@ public class DBService {
 //            TimerModel ti9 = timerService.insert(a1.getId(), tif1);
 //            TimerModel ti0 = timerService.insert(a1.getId(), tif1);
 
-            UserModel u1 = userService.findById(a1.getId());
-            u1.getTaskSet().forEach(System.out::println);
 
         } catch (Exception e) {
             e.printStackTrace();

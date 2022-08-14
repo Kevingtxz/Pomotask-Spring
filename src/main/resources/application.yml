@@ -11,7 +11,7 @@ spring:
 
 app:
   cors:
-    allowedOrigins: http://localhost:3000
+    allowedOrigins: ${ALLOWED_ORIGINS:http://localhost:3000}
   oauth2.authorizedRedirectUris:
     - http://localhost:3000/oauth2/redirect
     - myandroidapp://oauth2/redirect

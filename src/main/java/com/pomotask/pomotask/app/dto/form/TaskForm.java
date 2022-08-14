@@ -1,5 +1,6 @@
 package com.pomotask.pomotask.app.dto.form;
 
+import com.pomotask.pomotask.app.model.TaskModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TaskForm  {
+public class TaskForm extends AbsForm<TaskModel> {
 
 
     @NotBlank
@@ -20,17 +21,15 @@ public class TaskForm  {
     @NotNull
     private Integer workedTimeMinutes;
     @NotNull
-    private Integer healthLevel;
-    @NotNull
     private boolean successful;
     @NotNull
     private boolean hard;
     @NotNull
     private boolean crucial;
     @NotNull
-    private Long deadline;
+    private String deadline;
     @NotNull
-    private Long createdAt;
-    private Long finishedAt;
+    private String createdAt;
+    private String finishedAt;
 
 }

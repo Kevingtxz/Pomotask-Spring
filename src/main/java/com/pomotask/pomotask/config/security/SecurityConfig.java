@@ -1,7 +1,7 @@
 package com.pomotask.pomotask.config.security;
 
-import com.pomotask.pomotask.config.security.oauth2.AuthUserService;
 import com.pomotask.pomotask.config.security.handler.SuccessHandlerCustom;
+import com.pomotask.pomotask.config.security.oauth2.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +67,9 @@ public class SecurityConfig {
                     .antMatchers(PUBLIC_MATCHERS).permitAll()
                     .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                     .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest()
+                    .authenticated()
+//                    .hasAnyRole("USER")
                     .and()
                 .oauth2Login(
                 )

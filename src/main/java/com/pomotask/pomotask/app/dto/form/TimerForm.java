@@ -1,5 +1,6 @@
 package com.pomotask.pomotask.app.dto.form;
 
+import com.pomotask.pomotask.app.model.TimerModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TimerForm {
+public class TimerForm extends AbsForm<TimerModel> {
 
 
     @NotNull
@@ -19,9 +20,9 @@ public class TimerForm {
     @NotNull
     private boolean successful;
     @NotNull
-    private Long finishedAt;
+    private String finishedAt;
     @NotNull
-    private Long createdAt;
+    private String createdAt;
     @NotNull
     private Integer taskId;
 

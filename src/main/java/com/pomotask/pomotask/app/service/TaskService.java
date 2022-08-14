@@ -1,11 +1,11 @@
 package com.pomotask.pomotask.app.service;
 
-import com.pomotask.pomotask.auth.user.UserService;
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.dto.form.TaskForm;
 import com.pomotask.pomotask.app.dto.mapper.TaskMapper;
 import com.pomotask.pomotask.app.dto.view.TaskView;
+import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.repository.TaskRepository;
+import com.pomotask.pomotask.auth.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

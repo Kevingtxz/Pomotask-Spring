@@ -1,13 +1,12 @@
 package com.pomotask.pomotask.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -25,17 +24,13 @@ public class TaskModel extends AbsModel implements Serializable {
     @Column(nullable = false)
     private boolean hard;
     @Column(nullable = false)
-    private boolean crucial;
-    @Column(nullable = false)
     private boolean successful;
     @Column(nullable = false)
     private Integer expectedTimeHours;
     @Column(nullable = false)
     private Integer workedTimeMinutes;
     @Column(nullable = false)
-    private Integer healthLevel;
-    @Column(nullable = false)
-    private Long deadline;
-    private Long finishedAt;
+    private String deadline;
+    private String finishedAt;
 
 }

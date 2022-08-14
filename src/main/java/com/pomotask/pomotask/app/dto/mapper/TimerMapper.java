@@ -1,8 +1,8 @@
 package com.pomotask.pomotask.app.dto.mapper;
 
-import com.pomotask.pomotask.app.model.TimerModel;
 import com.pomotask.pomotask.app.dto.form.TimerForm;
 import com.pomotask.pomotask.app.dto.view.TimerView;
+import com.pomotask.pomotask.app.model.TimerModel;
 import org.springframework.stereotype.Component;
 
 @Component

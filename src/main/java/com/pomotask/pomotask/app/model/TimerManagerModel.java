@@ -20,11 +20,11 @@ public class TimerManagerModel extends AbsModel implements Serializable {
     private Integer timeSeconds;
     @Column(unique = true, length = 200)
     private Integer goalNumberTimers;
-    private Long finishAt;
+    private String finishAt;
     @Column(nullable = false)
     private boolean successful;
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "bigTimer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<TimerModel> timerEntitySet = new HashSet<>();
+    @OneToMany(mappedBy = "timerManager", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<TimerModel> timerSet = new HashSet<>();
 
 }

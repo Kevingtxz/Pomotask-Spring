@@ -1,12 +1,14 @@
 package com.pomotask.pomotask.app.service;
 
-import com.pomotask.pomotask.auth.user.UserModel;
-import com.pomotask.pomotask.auth.user.UserService;
-import com.pomotask.pomotask.app.model.AbsModel;
+import com.pomotask.pomotask.app.dto.form.AbsForm;
 import com.pomotask.pomotask.app.dto.mapper.AbsMapper;
+import com.pomotask.pomotask.app.dto.view.AbsView;
+import com.pomotask.pomotask.app.model.AbsModel;
 import com.pomotask.pomotask.app.repository.AbsRepository;
 import com.pomotask.pomotask.app.service.exception.ObjectNotFoundException;
-import com.pomotask.pomotask.util.RestMethod;
+import com.pomotask.pomotask.auth.user.UserModel;
+import com.pomotask.pomotask.auth.user.UserService;
+import com.pomotask.pomotask.util.enums.RestMethod;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +22,10 @@ import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class AbsService<Model extends AbsModel, Form, View> {
+public abstract class AbsService<
+        Model extends AbsModel,
+        Form extends AbsForm,
+        View extends AbsView> {
 
 
     final protected AbsRepository<Model> repo;

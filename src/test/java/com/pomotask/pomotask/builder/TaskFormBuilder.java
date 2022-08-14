@@ -5,6 +5,8 @@ import lombok.Builder;
 
 import java.util.Date;
 
+import static com.pomotask.pomotask.util.DateFormatterUtil.DATE_FORMAT;
+
 @Builder
 public class TaskFormBuilder {
 
@@ -24,11 +26,11 @@ public class TaskFormBuilder {
     @Builder.Default
     private boolean crucial = true;
     @Builder.Default
-    private Long deadline = new Date().getTime();
+    private String deadline = DATE_FORMAT.format(new Date());
     @Builder.Default
-    private Long createdAt = new Date().getTime();
+    private String createdAt = DATE_FORMAT.format(new Date());
     @Builder.Default
-    private Long finishedAt = new Date().getTime();
+    private String finishedAt = DATE_FORMAT.format(new Date());
 
 
     public TaskForm toForm() {
@@ -36,7 +38,6 @@ public class TaskFormBuilder {
         form.setTitle(title);
         form.setExpectedTimeHours(expectedTimeHours);
         form.setWorkedTimeMinutes(workedTimeMinutes);
-        form.setHealthLevel(healthLevel);
         form.setSuccessful(successful);
         form.setHard(hard);
         form.setCrucial(crucial);

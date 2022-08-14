@@ -8,7 +8,6 @@ import com.pomotask.pomotask.app.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,20 +32,17 @@ public class UserService {
     }
 
     public Set<TimerModel> findTimerSetById(Integer id) {
-        Set<TimerModel> modelSet = new HashSet<>();
-        this.findTimerManagerSetById(id)
+        return this.findTimerManagerSetById(id)
                 .stream()
-                .forEach(obj -> obj.getTimerEntitySet()
-                        .forEach(modelSet::add));
-        return modelSet;
+                .map(TimerManagerModel::getTimerSet)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     public Set<TimerManagerModel> findTimerManagerSetById(Integer id) {
         return this.repo.findTimerManagerSetById(id);
     }
 
-    public Set<TaskModel> findTaskSetById(Integer id) {
-        return this.repo.findTaskSetById(id);
-    }
+    public Set<TaskModel> findTaskSetById(Integer id) { return this.repo.findTaskSetById(id); }
 
 }

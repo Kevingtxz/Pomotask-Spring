@@ -1,7 +1,7 @@
 package com.pomotask.pomotask.config.security.oauth2;
 
-import com.pomotask.pomotask.auth.auth_user.AuthModel;
-import com.pomotask.pomotask.auth.auth_user.AuthService;
+import com.pomotask.pomotask.auth.auth.AuthModel;
+import com.pomotask.pomotask.auth.auth.AuthService;
 import com.pomotask.pomotask.config.security.exception.AuthenticationProcessingException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
