@@ -1,34 +1,18 @@
 package com.pomotask.pomotask.app.service;
 
 import com.pomotask.pomotask.app.dto.form.TimerForm;
-import com.pomotask.pomotask.app.dto.mapper.TimerMapper;
-import com.pomotask.pomotask.app.dto.view.TimerView;
+import com.pomotask.pomotask.app.model.TimerManagerModel;
 import com.pomotask.pomotask.app.model.TimerModel;
-import com.pomotask.pomotask.app.repository.TimerRepository;
-import com.pomotask.pomotask.auth.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Service
-public class TimerService extends AbsService<TimerModel, TimerForm, TimerView> {
+public interface TimerService {
 
 
-    @Autowired
-    public TimerService(TimerRepository repo, TimerMapper mapper, UserService userService) {
-        super(repo, mapper, userService);
-    }
-
-
-    @Override
-    protected Set<TimerModel> modelSet(Integer userId) {
-        return this.userService.findTimerSetById(userId);
-    }
-
-    @Override
-    protected String currentClassModelStr() {
-        return TimerModel.class.getName();
-    }
+    Set<TimerModel> findAllByUserId(Integer userId);
+    TimerModel findByUserIdAndId(Integer userId, Integer id);
+    TimerModel insert(Integer userId, TimerManagerModel timerManager, TimerForm form);
+    void deleteByUserIdAndId(Integer userId, Integer id);
+    void update(Integer userId, Integer id, TimerForm form);
 
 }

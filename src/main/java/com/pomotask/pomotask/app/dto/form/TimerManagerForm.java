@@ -1,6 +1,5 @@
 package com.pomotask.pomotask.app.dto.form;
 
-import com.pomotask.pomotask.app.model.TimerManagerModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TimerManagerForm extends AbsForm<TimerManagerModel> {
+public class TimerManagerForm {
 
 
     @NotNull

@@ -5,14 +5,21 @@ spring:
      github:
        clientId: ${GITHUB_CLIENT_ID:none}
        clientSecret: ${GITHUB_CLIENT_SECRET:none}
+       redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+       scope:
+         - user:email
 #      google:
 #        clientId: ${GOOGLE_CLIENT_ID:none}
 #        clientSecret: ${GOOGLE_CLIENT_SECRET:none}
+#        redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+#      facebook:
+#        clientId: ${FACEBOOK_CLIENT_ID:none}
+#        clientSecret: ${FACEBOOK_CLIENT_SECRET:none}
+#        redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
 
 app:
-  cors:
-    allowedOrigins: ${ALLOWED_ORIGINS:http://localhost:3000}
+  cors.allowedOrigins: ${ALLOWED_ORIGINS:http://localhost:3000,http://localhost:8080}
   oauth2.authorizedRedirectUris:
     - http://localhost:3000/oauth2/redirect
-    - myandroidapp://oauth2/redirect
-    - myiosapp://oauth2/redirect
+#    - myandroidapp://oauth2/redirect
+#    - myiosapp://oauth2/redirect

@@ -12,7 +12,7 @@ public class TimerFormBuilder {
 
 
     @Builder.Default
-    private Integer timeMinutes = 60;
+    private Integer timeSeconds = 60;
     @Builder.Default
     private int stopsCounter = 2;
     @Builder.Default
@@ -20,21 +20,20 @@ public class TimerFormBuilder {
     @Builder.Default
     private String createdAt = DATE_FORMAT.format(new Date());
     @Builder.Default
-    private String finishedAt = DATE_FORMAT.format(new Date());
-    @Builder.Default
-    private Integer taskId = 2000;
+    private String finishedAt = DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2);
     @Builder.Default
     private Integer userId = 1000;
+    @Builder.Default
+    private String taskDescription = "Making Pomotask";
 
 
     public TimerForm toForm() {
         TimerForm form = new TimerForm();
-        form.setTimeMinutes(timeMinutes);
+        form.setTimeSeconds(timeSeconds);
         form.setStopsCounter(stopsCounter);
         form.setSuccessful(successful);
         form.setCreatedAt(createdAt);
         form.setFinishedAt(finishedAt);
-        form.setTaskId(taskId);
         return form;
     }
 

@@ -1,7 +1,6 @@
 package com.pomotask.pomotask.auth.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.model.TimerManagerModel;
 import com.pomotask.pomotask.auth.auth.AuthModel;
 import lombok.*;
@@ -38,7 +37,5 @@ public class UserModel implements Serializable {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<TimerManagerModel> timerManagerSet = new HashSet<>();
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<TaskModel> taskSet = new HashSet<>();
 
 }

@@ -13,7 +13,6 @@ public interface AuthRepository extends JpaRepository<AuthModel, Integer> {
 
     @Transactional(readOnly = true)
     Optional<AuthModel> findByEmail(String email);
-
     @Modifying
     void deleteByEmail(String email);
 

@@ -1,13 +1,9 @@
 package com.pomotask.pomotask.app.dto.view;
 
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.model.TimerModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -19,8 +15,7 @@ public class TimerView extends AbsView<TimerModel> {
     private int stopsCounter;
     private boolean successful;
     private String finishedAt;
-    @ManyToOne
-    @JoinColumn(name = "TASK_ID")
-    private TaskModel task;
+    private String taskDescription;
+    private Integer timerManagerId;
 
 }

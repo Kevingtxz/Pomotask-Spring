@@ -18,7 +18,6 @@ public class TimerManagerModel extends AbsModel implements Serializable {
 
 
     private Integer timeSeconds;
-    @Column(unique = true, length = 200)
     private Integer goalNumberTimers;
     private String finishAt;
     @Column(nullable = false)

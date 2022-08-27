@@ -1,7 +1,6 @@
 package com.pomotask.pomotask.auth.user;
 
 
-import com.pomotask.pomotask.app.model.TaskModel;
 import com.pomotask.pomotask.app.model.TimerManagerModel;
 import com.pomotask.pomotask.app.model.TimerModel;
 import com.pomotask.pomotask.app.service.exception.ObjectNotFoundException;
@@ -42,7 +41,5 @@ public class UserService {
     public Set<TimerManagerModel> findTimerManagerSetById(Integer id) {
         return this.repo.findTimerManagerSetById(id);
     }
-
-    public Set<TaskModel> findTaskSetById(Integer id) { return this.repo.findTaskSetById(id); }
 
 }

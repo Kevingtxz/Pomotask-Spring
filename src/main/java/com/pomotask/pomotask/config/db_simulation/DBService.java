@@ -1,14 +1,12 @@
 package com.pomotask.pomotask.config.db_simulation;
 
-import com.pomotask.pomotask.app.dto.form.TaskForm;
-import com.pomotask.pomotask.app.model.TaskModel;
-import com.pomotask.pomotask.app.service.TaskService;
-import com.pomotask.pomotask.app.service.TimerManagerService;
-import com.pomotask.pomotask.app.service.TimerService;
 import com.pomotask.pomotask.auth.auth.AuthModel;
 import com.pomotask.pomotask.auth.auth.AuthService;
-import com.pomotask.pomotask.auth.user.UserModel;
-import com.pomotask.pomotask.auth.user.UserService;
+import com.pomotask.pomotask.app.dto.form.TimerForm;
+import com.pomotask.pomotask.app.dto.form.TimerManagerForm;
+import com.pomotask.pomotask.app.model.TimerManagerModel;
+import com.pomotask.pomotask.app.service.impl.TimerManagerServiceImpl;
+import com.pomotask.pomotask.app.service.impl.TimerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +21,9 @@ public class DBService {
     @Autowired
     private AuthService authService;
     @Autowired
-    private UserService userService;
+    private TimerManagerServiceImpl timerManagerService;
     @Autowired
-    private TimerManagerService timerManagerService;
-    @Autowired
-    private TimerService timerService;
-    @Autowired
-    private TaskService taskService;
+    private TimerServiceImpl timerService;
 
 
     public void instantiateTestDatabase() {
@@ -48,46 +42,48 @@ public class DBService {
             AuthModel a9 = authService.findOrInsertByEmail("email9@example.com");
             AuthModel a0 = authService.findOrInsertByEmail("email0@example.com");
 
-            TaskForm tf = new TaskForm();
-            tf.setTitle("First");
-            tf.setCrucial(true);
-            tf.setCreatedAt(DATE_FORMAT.format(new Date().getTime()));
-            tf.setDeadline(DATE_FORMAT.format(new Date().getTime() + 86400000 * 10));
-            tf.setHard(true);
-            tf.setExpectedTimeHours(100);
-            tf.setSuccessful(false);
-            tf.setWorkedTimeMinutes(5);
-            TaskModel t1 = taskService.insert(me.getUser().getId(), tf);
-            tf.setTitle("Second");
-            tf.setCrucial(false);
-            TaskModel t2 = taskService.insert(me.getUser().getId(), tf);
-            tf.setTitle("Third");
-            TaskModel t3 = taskService.insert(me.getUser().getId(), tf);
-//            TaskModel t4 = taskService.insert(a1.getId(), tf);
-//            TaskModel t5 = taskService.insert(a1.getId(), tf);
-//            TaskModel t6 = taskService.insert(a2.getId(), tf);
-//            TaskModel t7 = taskService.insert(a3.getId(), tf);
-//            TaskModel t8 = taskService.insert(a4.getId(), tf);
-//            TaskModel t9 = taskService.insert(a5.getId(), tf);
-//            TaskModel t0 = taskService.insert(a6.getId(), tf);
 
+            TimerManagerForm tmf1 = new TimerManagerForm();
+            tmf1.setCreatedAt(DATE_FORMAT.format(new Date()));
+            tmf1.setTimeSeconds(3600);
+            tmf1.setSuccessful(false);
+            tmf1.setFinishAt(DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2));
+            tmf1.setGoalNumberTimers(3);
 
-//            TimerForm tif1 = new TimerForm();
-//            tif1.setCreatedAt(new Date().getTime());
-//            tif1.setStopsCounter(10);
-//            tif1.setTaskId(t1.getId());
-//            tif1.setTimeMinutes(60);
-//
-//            TimerModel ti1 = timerService.insert(me.getId(), tif1);
-//            TimerModel ti2 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti3 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti4 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti5 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti6 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti7 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti8 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti9 = timerService.insert(a1.getId(), tif1);
-//            TimerModel ti0 = timerService.insert(a1.getId(), tif1);
+            TimerManagerForm tmf2 = new TimerManagerForm();
+            tmf2.setCreatedAt(DATE_FORMAT.format(new Date()));
+            tmf2.setTimeSeconds(3600);
+            tmf2.setSuccessful(false);
+            tmf2.setFinishAt(DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2));
+            tmf2.setGoalNumberTimers(3);
+
+            TimerForm tif1 = new TimerForm();
+            tif1.setStopsCounter(10);
+            tif1.setTimeSeconds(60);
+            tif1.setSuccessful(false);
+            tif1.setCreatedAt(DATE_FORMAT.format(new Date()));
+            tif1.setFinishedAt(DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2));
+            TimerForm tif2 = new TimerForm();
+            tif2.setStopsCounter(10);
+            tif2.setTimeSeconds(60);
+            tif2.setSuccessful(false);
+            tif2.setCreatedAt(DATE_FORMAT.format(new Date()));
+            tif2.setFinishedAt(DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2));
+
+            tmf1.getTimerEntitySet().add(tif1);
+            tmf1.getTimerEntitySet().add(tif2);
+
+            TimerForm tif3 = new TimerForm();
+            tif3.setStopsCounter(10);
+            tif3.setTimeSeconds(60);
+            tif3.setSuccessful(false);
+            tif3.setCreatedAt(DATE_FORMAT.format(new Date()));
+            tif3.setFinishedAt(DATE_FORMAT.format(new Date().getTime() + 60 * 60 * 24 * 2));
+
+            tmf2.getTimerEntitySet().add(tif3);
+
+            TimerManagerModel tmm1 = timerManagerService.insert(me.getUser().getId(), tmf1);
+            TimerManagerModel tmm2 = timerManagerService.insert(me.getUser().getId(), tmf2);
 
 
         } catch (Exception e) {

@@ -19,16 +19,14 @@ public class TimerModel extends AbsModel implements Serializable {
 
 
     @Column(nullable = false)
-    private Integer timeMinutes;
+    private Integer timeSeconds;
     @Column(nullable = false)
     private int stopsCounter;
     @Column(nullable = false)
     private boolean successful;
     @Column(nullable = false)
     private String finishedAt;
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name = "TASK_ID")
-    private TaskModel task;
+    private String taskDescription;
     @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "TIMER_MANAGER_ID", nullable = false)
     private TimerManagerModel timerManager;

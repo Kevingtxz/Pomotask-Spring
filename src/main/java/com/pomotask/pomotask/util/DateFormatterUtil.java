@@ -10,10 +10,10 @@ public class DateFormatterUtil {
             new SimpleDateFormat(
                     "yyyy-MM-dd'T'HH:mm:ssZ",
                     new Locale("pt","BR"));
+
     public final static SimpleDateFormat DAY_DATE_FORMAT =
             new SimpleDateFormat(
                     "yyyy-MM-ddZ",
                     new Locale("pt","BR"));
-
 
 }

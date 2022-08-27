@@ -1,7 +1,6 @@
 package com.pomotask.pomotask.app.dto.view;
 
 import com.pomotask.pomotask.app.model.TimerManagerModel;
-import com.pomotask.pomotask.app.model.TimerModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +18,6 @@ public class TimerManagerView extends AbsView<TimerManagerModel> {
     private Integer goalNumberTimers;
     private String finishAt;
     private boolean successful;
-    private List<TimerModel> timerEntityList = new ArrayList<>();
+    private List<TimerView> timerList = new ArrayList<>();
 
 }
